@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!--External Style Sheet-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>Machine Translation</title>
+    
+  </head>
+
+  <body>
+    <header>
+      <h1>Machine Translation</h1>
+    </header>
+
+    <main>
+      <div class="translator">
+      <section>
+        <h2>Translate</h2>      
+          <!--Choose Input Language-->
+          <div class="source_selector">
+            <label for="source"><br>Source Language:</label>
+            <select id="source_language" name="source_language">
+              <option value="en">English</option>
+              <option value="fil">Filipino</option>
+              <option value="hi">Hindi</option>
+              <option value="id">Bahasa Indonesia</option>
+              <option value="ja">Japanese</option>
+            </select>
+          </div>
+
+          <!--Choose Target Language-->
+          <div class="target_selector">
+            <label for="target">Target Language:</label>
+            <select id="target_language" name="target_language">
+              <option value="en">English</option>
+              <option value="fil">Filipino</option>
+              <option value="hi">Hindi</option>
+              <option value="id">Bahasa Indonesia</option>
+              <option value="ja">Japanese</option>
+            </select>
+          </div>
+
+          <!--Translate Input and Button-->
+          <div class="translation_input">
+            <input type="text" placeholder="Enter Text">
+            <button class="translate_button" id="translate_button">Translate</button>
+          </div>
+      </section>
+
+      <section>
+        <div class="results">
+          <!--Translation Result-->
+          <h2>Translation</h2>
+          <div id="translation_result" class="translation_result">
+          </div>
+        </div>
+      </section>
+      </div>
+    </main>
+
+  <!-- Javascript prompt-->
+    <script>
+      // Pass the URL to the JavaScript
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script src="{{ url_for('static',filename='script/translator.js') }}">
+    </script>
+
+  </body>
+</html>

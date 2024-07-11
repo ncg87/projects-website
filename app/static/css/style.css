@@ -1,0 +1,25 @@
+title{
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #000000;
+}
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+}
+.translator{
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    border: 1px solid #ccc;
+    background-color: #dddddd;
+}
+.results{
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    margin: 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
