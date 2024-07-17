@@ -41,7 +41,7 @@ class Translator {
             'target_language': target_language
         }
         // Calls the translate function
-        fetch($SCRIPT_ROOT + '/predict',{
+        fetch($SCRIPT_ROOT + '/translate',{
             method: 'POST',
             body: JSON.stringify(data),
             mode: 'cors',

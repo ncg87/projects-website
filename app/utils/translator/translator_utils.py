@@ -35,7 +35,7 @@ model.resize_token_embeddings(len(tokenizer))
 model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device(device)))
 model.eval()
 
-## -- Nessary Functions --##
+## -- Nessecary Functions --##
 
 # Tokenizes and numericalizes input string
 def encode_input_str(text, target_lang, tokenizer, seq_len,

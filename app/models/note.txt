@@ -1,0 +1,1 @@
+This folder hold all the different models used on the site

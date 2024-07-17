@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Face Detector</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/face_detector.css')}}">
+  </head>
+  <!--Link back to Home Page-->
+  <body>
+    <a href="/">Go to Home Page</a>
+  </body>
+    <div class="container">
+    <!--Image we will be updating with YOLO image frames-->
+    <body>
+        <h1>Live Streaming</h1>
+        <div class="stream_container">
+            <img id="stream" src="{{url_for('detect')}}" width="50%"/>
+        </div>
+        <!--Javascript to ask for permissions-->
+        <script src="{{ url_for('static',filename='script/face_detector.js') }}"></script>
+    </body>
+    </div>
+</html>
