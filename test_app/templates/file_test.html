@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Fetch Test</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/file_test.css')}}">
+</head>
+<body>
+    <form enctype="multipart/form-data" class="form">
+        <br>
+        <!--Input only accepts images-->
+        <label for="input">Input Image</label>
+        <input type="file" id="input">
+        <br>
+        <button type="button" id="caption_button" class="caption_button">Add Caption</button>
+    </form>
+    <div class="image-container">
+        <img class='captioned_image' id="captioned_image">
+        <div id="caption"></div>
+    </div>
+    <script src="{{ url_for('static',filename='script/file_test.js') }}">
+        // Pass the URL to the JavaScript
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+</body>
+</html>

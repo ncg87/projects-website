@@ -7,14 +7,29 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/image_captioning.css')}}">
 </head>
 <body>
+    <a href="/">Go back to Home Page</a>
     <div class="container">
         <h1>Image Captioning</h1>
         <p>A simple tool to add captions to images.</p>
-        
+        <form enctype="multipart/form-data" class="form">
+            <br>
+            <!--Input only accepts images-->
+            <label for="input">Input Image</label>
+            <input type="file" accept="image/*" id="input">
+            <br>
+            <button type="button" id="caption-button" class="caption-button">Add Caption</button>
+        </form>
         <div class="image-container">
-            <img src="path/to/your/image.jpg" alt="Description of the image">
-            <div class="caption">Caption: This is a caption for the image.</div>
+            <img id="captioned_image">
+            <div class="caption"></div>
         </div>
     </div>
+    <script>
+        // Pass the URL to the JavaScript
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <!--Load JavaScript file-->
+    <script src="{{ url_for('static',filename='script/captioning.js') }}">
+    </script>
 </body>
 </html>

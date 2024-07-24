@@ -187,7 +187,7 @@ class EncoderDecoder(nn.Module):
         with torch.inference_mode():
                 # case of single image input
                 if(image.dim() == 3):
-                    image.unsqueeze(0)
+                    image = image.unsqueeze(0)
                 # get features of image
                 features = self.encoder(image)
                 # generate caption for image

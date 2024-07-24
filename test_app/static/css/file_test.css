@@ -24,9 +24,9 @@ p {
 }
 
 .image-container {
+    display: none;
     text-align: center;
     margin-top: 20px;
-    display: none;
 }
 .form{
     text-align: center;
@@ -36,6 +36,7 @@ p {
     border-radius: 15px;
 }
 .image-container img {
+    background: #ccc;
     max-width: 100%;
     height: auto;
     border-radius: 5px;
