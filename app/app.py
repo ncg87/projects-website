@@ -1,8 +1,10 @@
 # For handling the website routes and requests
 from flask import Flask, request, jsonify, render_template, Response
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 # For logging/debugging
 import sys
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
 # Translation functions
 from utils.translator.translator_utils import predict, tokenizer
@@ -86,7 +88,6 @@ def caption():
     try:
         # Get the image from the POST request
         data = request.files
-        print(data)
         # Check if data is empty
         if data is None:
             return jsonify({'error': 'No data found'})
@@ -94,7 +95,6 @@ def caption():
         image = data['image'].stream
         # Get the caption of the image
         caption = predict_caption(image)
-        print(caption)
         # Return caption
         return jsonify({'caption': str(caption)})
     except Exception as e:

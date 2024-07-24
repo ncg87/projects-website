@@ -1,0 +1,21 @@
+@import "navigation.css";
+
+title{
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #000000;
+}
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+}
+.writing {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

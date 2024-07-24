@@ -6,19 +6,29 @@
     <title>Face Detector</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/face_detector.css')}}">
   </head>
-  <!--Link back to Home Page-->
-  <body>
-    <a href="/">Go to Home Page</a>
-  </body>
+  <!--Links to all Pages-->
+  <nav>
+    <ul>
+      <li><a href="/" id="back">Go to Home Page</a></li>
+      <li><a href="/face_detector">Face Detector</a></li>
+      <li><a href="/translation">Translation</a></li>
+      <li><a href="/image_captioning">Image Captioning</a></li>
+    </ul>
+  </nav>
     <div class="container">
     <!--Image we will be updating with YOLO image frames-->
     <body>
         <h1>Live Streaming</h1>
         <div class="stream_container">
-            <img id="stream" src="{{url_for('detect')}}" width="50%"/>
+            <img id="stream"width="50%"/>
         </div>
+        <button type="button" class="start_button" id="start_button">Start</button>
+        <label for="start_button">Start</label>
+        <button type="button" class="stop_button" id="stop_button">Stop</button>
+        <label for="stop_button">Stop</label>
         <!--Javascript to ask for permissions-->
-        <script src="{{ url_for('static',filename='script/face_detector.js') }}"></script>
+        <script src="{{ url_for('static',filename='script/face_detector.js') }}">
+        </script>
     </body>
     </div>
 </html>

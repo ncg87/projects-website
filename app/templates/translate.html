@@ -3,20 +3,24 @@
   <head>
     <meta charset="utf-8">
     <!--External Style Sheet-->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/translator.css')}}">
     <title>Machine Translation</title>
     
   </head>
-
+<!--Links to all Pages-->
+<nav>
+  <ul>
+      <li><a href="/" id="back">Home Page</a></li>
+      <li><a href="/face_detector">Face Detector</a></li>
+      <li><a href="/translation">Translation</a></li>
+      <li><a href="/image_captioning">Image Captioning</a></li>
+  </ul>
+</nav>
   <body>
-    <header>
-      <h1>Machine Translation</h1>
-    </header>
-
     <main>
       <div class="translator">
       <section>
-        <h2>Translate</h2>      
+        <h1>Translator</h1>      
           <!--Choose Input Language-->
           <div class="source_selector">
             <label for="source"><br>Source Language:</label>

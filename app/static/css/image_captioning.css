@@ -1,3 +1,4 @@
+@import "navigation.css";
 
 body {
     font-family: Arial, sans-serif;
@@ -31,10 +32,10 @@ p {
 .form{
     text-align: center;
     margin-top: 20px;
-    background: #bbbbbb;
     /*makes the edges curved putting it at 50% makes it a circle*/
     border-radius: 15px;
 }
+
 .image-container img {
     max-width: 100%;
     height: auto;
@@ -50,12 +51,15 @@ p {
 .form label{
     display: block;
     width: 200px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(205, 205, 205);
     color:#333;
     padding: 12px;
     margin: auto;
     border-radius: 10px;
     cursor: pointer;
+}
+.form label:hover {
+    background-color: #bbbbbb;
 }
 .form input{
     display: none;

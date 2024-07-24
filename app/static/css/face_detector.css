@@ -1,8 +1,10 @@
+@import "navigation.css";
 
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 20px;
+    text-align: center;
 }
 
 .container {
@@ -33,4 +35,21 @@ img {
     height: auto;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+body button {
+    display: none;
+}
+body label {
+    width: 75px;
+    display: inline-block;
+    background-color: rgb(205, 205, 205);
+    color:#333;
+    padding: 12px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+body label:hover {
+    background-color: #bbbbbb;
 }

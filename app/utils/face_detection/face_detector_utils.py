@@ -50,8 +50,6 @@ def generate_predictions():
         if success:
             # Draws bounding boxes
             frame = detect_face(frame)
-            # Converts frame to RGB
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             # Encodes annotated image
             ret, buffer = cv2.imencode('.jpg', frame)
             # Convert image to bytes
