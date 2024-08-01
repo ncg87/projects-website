@@ -1,76 +1,92 @@
+
 // Face Detector class
 class FaceDetector {
     constructor() {
+        // Buttons to stop and start camera
         this.startButton = document.getElementById('start_button');
         this.stopButton = document.getElementById('stop_button');
-        this.videoElement = document.getElementById('stream');
+        // Video that captures the feed
+        this.video = document.getElementById('video');
+        // Canvas to draw the feed
+        this.canvas = document.getElementById('video_capture');
+        this.context = this.canvas.getContext('2d');
+        //
+        this.videoElement = document.getElementById('face_detector');
+        // Variables to check if the camera is streaming and the stream itself
+        this.streaming = false;
+        this.stream = null;
+        this.initialize();
     }
+
     initialize() {
-        // Ask for camera permission
-        this.askForCameraPermission()
-        // Add event listener to start button
+        // Add event listener to start and stop button
         this.startButton.addEventListener('click', () => this.onStartButton());
-        
+        this.stopButton.addEventListener('click', () => this.onStopButton());
     }
     // Starting the camera through flask
-    onStartButton() {
-        // Check if permission is granted
-        this.checkPermission().then(permission => {
-            if(permission){
-                // Add event listener to stop button
-                this.stopButton.addEventListener('click', () => this.onStopButton());
-                console.log('Starting Camera');
-                // Set the video element source to the detect route
-                this.videoElement.src = "http://127.0.0.1:5000/detect";
-            } else{
-                // Log error
-                console.error('Permission Denied');
-                // Tell user to grant camera permission
-                alert("Please grant camera permission to use ");
-            }
+    async onStartButton() {
+        try {
+            // Waits for camera permission and gets video feed when it does
+            this.stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            this.video.srcObject = this.stream;
+            this.video.addEventListener('loadedmetadata', () => {
+                this.canvas.width = this.video.videoWidth;
+                this.canvas.height = this.video.videoHeight;
+                this.streaming = true;
+                // Starts processing the video feed for face detection
+                this.startProcessing();
         });
-        
+        } catch (error){
+            alert('Error accessing camera:', error);
+            console.error('Error accessing camera:', error);
+        }
+    }
+    // Function to start processing the video feed, gets the feed and sends it to Flask app
+    async startProcessing() {
+        while(this.streaming) {
+            // Draws the video feed on the canvas
+            this.context.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+            // Converts the canvas to a frame for inference
+            this.canvas.toBlob(async (blob) => {
+                // Creates a form to store image
+                const formData = new FormData();
+                formData.append('image', blob);
+                try{
+                    const response = await fetch($SCRIPT_ROOT + '/process_frame', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    // If the response is not ok, throw an error
+                    if(!response.ok) {
+                        throw new Error('Failed to process frame');
+                    }
+                    // Get the image blob from the response
+                    const imgBlob = await response.blob();
+                    // Create a URL for the image blob
+                    const imageURL = URL.createObjectURL(imgBlob);
+                    // Update the video element with the image
+                    this.updateVideo(imageURL);
+                } catch (error){
+                    console.error('Failed to process frame:', error);
+                }
+            }, 'image/jpeg');
+            await new Promise(resolve => setTimeout(resolve, 175)); // Have to keep the frame low so inference can keep up
+        }
     }
     // Stopping the camera through flask
     onStopButton() {
-        console.log('Stopping Camera');
-        this.videoElement.src = "";
-        // Calls flask to stop the camera stream
-        fetch('http://127.0.0.1:5000/stop_camera', { method: 'POST' })
-        .then(response => {
-            if (!response.ok) {
-                console.error('Error stopping camera');
-            }            
-        })
-        .catch( error => {
-            console.error('Error stopping streaming:', error);
-        });
+        // Stops processing the video feed
+        this.streaming = false;
+        // Stops the video feed
+        this.video.srcObject.getTracks().forEach(track => track.stop());
     }
     // Function to ask for camera permission
-    askForCameraPermission() {
-        // Creates a promise to handle the camera permission
-        return new Promise(function(resolve, reject) {
-            // Uses navigator.mediaDevices.getUserMedia to ask for camera permission
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function(stream) {
-                    // If permission is granted, resolve the promise with the stream
-                    resolve(stream);
-                })
-                .catch(function(err) {
-                    // If permission is denied, reject the promise with the error
-                    reject(err);
-                });
-            });
-    }
-    //Function to check if permission is granted
-    checkPermission() {
-        return navigator.permissions.query({name: 'camera'})
-        .then(permission => permission.state === 'granted');
+    updateVideo(URL) {
+        // Update the video element with the labeled frame
+        this.videoElement.src = URL;
     }
 }
 
 // Create a new face detector object
 const faceDetector = new FaceDetector();
-// Initialize the face detector
-faceDetector.initialize();
 

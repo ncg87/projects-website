@@ -17,18 +17,24 @@
   </nav>
     <div class="container">
     <!--Image we will be updating with YOLO image frames-->
-    <body>
         <h1>Live Streaming</h1>
-        <div class="stream_container">
-            <img id="stream"width="50%"/>
-        </div>
+        <!-- For Inference and Displaying -->
+        <video id="video" autoplay></video>
+        <canvas id="video_capture"></canvas>
+        <img id="face_detector" width="50%"></img>
+        <div>
+        <!-- For starting and stopping the feed -->
         <button type="button" class="start_button" id="start_button">Start</button>
-        <label for="start_button">Start</label>
-        <button type="button" class="stop_button" id="stop_button">Stop</button>
-        <label for="stop_button">Stop</label>
+          <label for="start_button">Start</label>
+          <button type="button" class="stop_button" id="stop_button">Stop</button>
+          <label for="stop_button">Stop</label>
+        </div>
         <!--Javascript to ask for permissions-->
+        <script>
+          // Pass the URL to the JavaScript
+          $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        </script>
         <script src="{{ url_for('static',filename='script/face_detector.js') }}">
         </script>
-    </body>
     </div>
 </html>

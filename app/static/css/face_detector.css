@@ -8,6 +8,10 @@ body {
 }
 
 .container {
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    align-items: center; /* Centers horizontally */
+    justify-content: center; /* Centers vertically if container height is defined */
     max-width: 800px;
     margin: auto;
     padding: 20px;
@@ -15,27 +19,22 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
+video{
+    display: none;
+}
 h1 {
     text-align: center;
     color: #333;
 }
-
-p {
-    text-align: center;
+canvas{
+    display: none;
 }
-
-.stream_container {
-    text-align: center;
-    margin-top: 20px;
-}
-
 img {
+    display: block;
     max-width: 100%;
     height: auto;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: auto;
 }
 body button {
     display: none;

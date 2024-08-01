@@ -1,8 +1,9 @@
 # For handling the website routes and requests
-from flask import Flask, request, jsonify, render_template, Response
+from flask import Flask, request, jsonify, render_template, send_file
 from flask_cors import CORS
 # For logging/debugging
 import sys
+import io
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
@@ -11,7 +12,7 @@ from utils.translator.translator_utils import predict, tokenizer
 # Image Captioning functions
 from utils.captioning.image_captioning_utils import predict_caption
 # Face detector functions
-from utils.face_detection.face_detector_utils import generate_predictions, start_camera, stop_camera
+from utils.face_detection.face_detector_utils import generate_prediction
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
@@ -104,17 +105,28 @@ def caption():
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
 # Stream video with face detection
-@app.route('/detect')
+@app.route('/process_frame', methods=['POST'])
 def detect():
-    # Start the camera so we generate predictions
-    start_camera()
-    return Response(generate_predictions(),mimetype='multipart/x-mixed-replace; boundary=frame')
-
-# Stop the video stream
-@app.post('/stop_camera')
-def stop_streaming():
-    stop_camera()
-    return jsonify({'message': 'Camera stopped'})
+    # Check if the request is a POST request, so we don't get error
+    if request.method not in ['POST']:
+        print("Error: POST requests only")
+        return jsonify({'error': 'POST requests only'})
+    # Try to get the image and caption it
+    try:
+        # Get the image from the POST request
+        data = request.files
+        # Check if data is empty
+        if data is None:
+            return jsonify({'error': 'No data found'})
+        # Get the frame from the POST request
+        frame = data['image'].stream
+        # Get the labeled frame as a byte stream
+        labeled_frame = generate_prediction(frame)
+        # Return labeled frame
+        return send_file(io.BytesIO(labeled_frame), mimetype='image/jpeg')
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Error during prediction'})
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
