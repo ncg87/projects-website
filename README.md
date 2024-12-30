@@ -61,26 +61,5 @@ Open your web browser and navigate to http://localhost to access the homepage.
  - Image Captioning: Go to /image_captioning
  - Face Detection: Go to /face_detector
 
-### File Structure
-.
-├── app/
-│   ├── app.py                # Main Flask application
-│   ├── dataset.py            # Dataset handling for captioning
-│   ├── translator_utils.py   # Translation utilities
-│   ├── face_detector_utils.py# Face detection utilities
-│   └── image_captioning.py   # Image captioning models
-├── static/
-│   ├── css/                  # Stylesheets for frontend
-│   ├── js/                   # JavaScript files for frontend
-│   └── models/               # Trained AI/ML models
-├── templates/
-│   ├── home.html             # Homepage
-│   ├── translation.html      # Translation page
-│   ├── image_captioning.html # Image captioning page
-│   └── face_detector.html    # Face detection page
-├── Dockerfile                # Dockerfile for Flask app
-├── docker-compose.yml        # Docker Compose for app and NGINX
-└── README.md                 # Project documentation
-
 
 
